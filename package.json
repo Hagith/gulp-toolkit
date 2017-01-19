@@ -2,21 +2,32 @@
   "name": "gulp-toolkit",
   "version": "0.0.1",
   "description": "Set of gulp tasks to use in projects",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [
+    "gulp"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hagith/gulp-toolkit.git"
   },
-  "keywords": [
-    "gulp"
-  ],
   "author": "Rafal Galka <rafal.galka@modernweb.pl>",
   "license": "MIT",
+  "homepage": "https://github.com/Hagith/gulp-toolkit#readme",
   "bugs": {
     "url": "https://github.com/Hagith/gulp-toolkit/issues"
   },
-  "homepage": "https://github.com/Hagith/gulp-toolkit#readme"
+  "engines": {
+    "node": ">=6.9"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.0",
+    "merge-options": "0.0.64"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
