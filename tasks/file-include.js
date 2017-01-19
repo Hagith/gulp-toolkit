@@ -1,5 +1,5 @@
 const include = require('gulp-file-include');
-const mergeOptions = require('merge-options');
+const merge = require('merge-options');
 
 const defaults = {
   src: '',
@@ -10,9 +10,9 @@ const defaults = {
 };
 
 module.exports = (config) => {
-  const opts = mergeOptions.call({ concatArrays: true }, defaults, config);
+  const opts = merge.call({ concatArrays: true }, defaults, config);
 
-  return function sassTask() {
+  return function fileIncludeTask() {
     return this.src(opts.src)
       .pipe(include(opts.options))
       .pipe(this.dest(opts.dest));

@@ -2,7 +2,7 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const plumber = require('gulp-plumber');
-const mergeOptions = require('merge-options');
+const merge = require('merge-options');
 const errorHandler = require('../lib/error-handler');
 
 const defaults = {
@@ -16,7 +16,7 @@ const defaults = {
 };
 
 module.exports = (config) => {
-  const opts = mergeOptions.call({ concatArrays: true }, defaults, config);
+  const opts = merge.call({ concatArrays: true }, defaults, config);
 
   return function sassTask() {
     return this.src(opts.src)
