@@ -13,6 +13,9 @@ const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const sourcemaps = require('gulp-sourcemaps');
+const gulpif = require('gulp-if');
+const uglify = require('gulp-uglify');
+const size = require('gulp-size');
 const merge = require('merge-options');
 
 const bundleLogger = require('../lib/bundle-logger');
@@ -22,7 +25,7 @@ const defaults = {
   bundles: [],
 };
 
-module.exports = (config, watch) => {
+module.exports = (config, mode) => {
   const opts = merge.call({ concatArrays: true }, defaults, config);
 
   return function browserifyTask(callback) {
@@ -46,7 +49,7 @@ module.exports = (config, watch) => {
         }
       };
 
-      if (watch) {
+      if (mode === 'watch') {
         // Add watchify args and debug (sourcemaps) option
         merge(options, watchify.args, { debug: true });
       }
@@ -57,20 +60,23 @@ module.exports = (config, watch) => {
 
         return b.bundle()
           .on('error', (error) => {
-            if (watch) {
+            if (mode === 'watch') {
               return handleErrors.call(this, error);
             }
             throw error;
           })
           .pipe(source(options.outputName))
           .pipe(buffer())
-          .pipe(sourcemaps.init({ loadMaps: true }))
-          .pipe(sourcemaps.write('./'))
+          .pipe(gulpif(mode === 'watch', sourcemaps.init({ loadMaps: true })))
+          .pipe(gulpif(mode === 'minify', uglify(config.minify)))
+          .pipe(gulpif(mode === 'watch', sourcemaps.write('./')))
+          .pipe(size({ title: 'scripts' }))
+          .pipe(size({ title: 'scripts', gzip: true }))
           .pipe(this.dest(options.dest))
           .on('end', reportFinished);
       };
 
-      if (watch) {
+      if (mode === 'watch') {
         // Wrap with watchify and rebundle on changes
         b = watchify(b);
         b.on('update', bundle);

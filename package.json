@@ -32,6 +32,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.4.0",
+    "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.8",
     "merge-options": "0.0.64",
     "merge-stream": "^1.0.1",

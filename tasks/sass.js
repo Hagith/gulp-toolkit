@@ -30,8 +30,8 @@ module.exports = (config, minify = false) => {
       .pipe(autoprefixer(opts.autoprefixer))
       .pipe(gulpif(minify, cleanCss(opts.minify)))
       .pipe(gulpif(!minify, sourcemaps.write('.')))
-      .pipe(this.dest(opts.dest))
       .pipe(size({ title: 'styles' }))
-      .pipe(size({ title: 'styles', gzip: true }));
+      .pipe(size({ title: 'styles', gzip: true }))
+      .pipe(this.dest(opts.dest));
   };
 };
